@@ -4,8 +4,10 @@ import com.springboot.blog.payload.PostDto;
 import com.springboot.blog.payload.PostResponse;
 import com.springboot.blog.service.PostService;
 import com.springboot.blog.utils.AppConstants;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,8 +26,9 @@ public class PostController {
      * @param postDto the post dto from the request body
      * @return a response entity containing the post dto
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto) {
+    public ResponseEntity<PostDto> createPost(@Valid @RequestBody PostDto postDto) {
         return new ResponseEntity(postService.createPost(postDto), HttpStatus.CREATED);
     }
 
@@ -62,11 +65,19 @@ public class PostController {
      * @param id      the id of the post to be updated
      * @return the response entity that contains the updated post dto
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<PostDto> updatePost(@RequestBody PostDto postDto, @PathVariable long id) {
+    public ResponseEntity<PostDto> updatePost(@Valid @RequestBody PostDto postDto, @PathVariable long id) {
         return new ResponseEntity(postService.updatePost(postDto, id), HttpStatus.OK);
     }
 
+    /**
+     * Deletes a post.
+     *
+     * @param id the id of the post
+     * @return the response entity that contains the delete post dto
+     */
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletePost(@PathVariable long id) {
         postService.deletePost(id);
