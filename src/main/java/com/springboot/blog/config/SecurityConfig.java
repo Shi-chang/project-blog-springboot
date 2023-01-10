@@ -52,7 +52,6 @@ public class SecurityConfig {
         httpSecurity.csrf()
                 .disable()
                 .authorizeHttpRequests(authorize ->
-                        //authorize.anyRequest().authenticated()
                         authorize.requestMatchers(HttpMethod.GET, "/api/**").permitAll()
                                 .requestMatchers("/api/auth/**").permitAll()
                                 .anyRequest().authenticated()
@@ -61,19 +60,4 @@ public class SecurityConfig {
         httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
-
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        UserDetails alan = User.builder()
-//                .username("alan")
-//                .password(passwordEncoder().encode("123456"))
-//                .roles("ADMIN").build();
-//
-//        UserDetails susan = User.builder()
-//                .username("susan")
-//                .password(passwordEncoder().encode("123456"))
-//                .roles("USER").build();
-//
-//        return new InMemoryUserDetailsManager(alan, susan);
-//    }
 }
