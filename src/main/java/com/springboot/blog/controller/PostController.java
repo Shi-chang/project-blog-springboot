@@ -89,7 +89,7 @@ public class PostController {
 
     @GetMapping("/categories/{categoryId}")
     public ResponseEntity<List<PostDto>> getPostsByCategory(@PathVariable long categoryId) {
-        List<PostDto> posts = postService.getPostByCategory(categoryId);
+        List<PostDto> posts = postService.getPostsByCategory(categoryId);
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 }
