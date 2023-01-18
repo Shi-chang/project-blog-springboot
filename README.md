@@ -19,4 +19,5 @@ operations on their posts and comments in the blog system.
 # Acknowledgements
 
 I would like to thank the instructor of the course, Ramesh Fadatare from Udemy, for providing this
-informative course in a efficient way, as well as his quick responses to questions.
+informative course in a efficient way, responding to questions in a timely manner and spending extra
+time explaining what's under the hood behind the framework.
